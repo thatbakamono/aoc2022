@@ -9,17 +9,20 @@ fn main() {
         .map(|line| line.unwrap())
         .map(|line| line.parse::<usize>().ok());
 
-    let mut inventories = vec![];
+    let mut biggest_inventory = 0usize;
     let mut current_inventory = 0usize;
 
     for line in lines {
         if let Some(line) = line {
             current_inventory += line;
         } else {
-            inventories.push(current_inventory);
+            if current_inventory > biggest_inventory {
+                biggest_inventory = current_inventory;
+            }
+
             current_inventory = 0usize;
         }
     }
 
-    println!("{}", inventories.into_iter().max().unwrap());
+    println!("{biggest_inventory}");
 }
